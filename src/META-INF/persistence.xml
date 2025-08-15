@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<persistence-unit name="AutoServicioSAP">
+
+		<jta-data-source>sssap-ds</jta-data-source>
+		<mapping-file>META-INF/orm.xml</mapping-file>
+
+		<class>com.autoserviciosap.model.ActiveDirectoryDomain</class>
+		<class>com.autoserviciosap.model.ActiveDirectoryEnvironment</class>
+		<class>com.autoserviciosap.model.Configuration</class>
+		<class>com.autoserviciosap.model.Enterprise</class>
+		<class>com.autoserviciosap.model.Environment</class>
+		<class>com.autoserviciosap.model.Evento</class>
+		<class>com.autoserviciosap.model.Permission</class>
+		<class>com.autoserviciosap.model.SelfServiceRequest</class>
+		<class>com.autoserviciosap.model.SelfServiceRequestType</class>
+		<class>com.autoserviciosap.model.User</class>
+
+		<properties>
+
+			<!-- <property name="eclipselink.cache.shared.default" value="false" /> 
+				<property name="eclipselink.query-results-cache" value="false" /> -->
+
+			<property name="openjpa.Log"
+				value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=TRACE" />
+
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
+			<!-- -->
+
+		</properties>
+
+	</persistence-unit>
+</persistence>
