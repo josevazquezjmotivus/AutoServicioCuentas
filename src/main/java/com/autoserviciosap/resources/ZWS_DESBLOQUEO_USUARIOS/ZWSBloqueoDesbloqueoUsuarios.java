@@ -33,7 +33,14 @@ public class ZWSBloqueoDesbloqueoUsuarios
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://nsxwspd01.nasoft.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zwsbloqueo_desbloqueo_usrs/100/zws_bloqueo_desbloqueo_usuarios/zbd_bloqueo_desbloqueo_usuarios?sap-client=100");
+            String wsdlUrl = System.getProperty("sap.wsdl.url");
+            if (wsdlUrl == null || wsdlUrl.isEmpty()) {
+                wsdlUrl = System.getenv("SAP_WSDL_URL");
+            }
+            if (wsdlUrl == null || wsdlUrl.isEmpty()) {
+                throw new MalformedURLException("WSDL URL not set in system property 'sap.wsdl.url' or environment variable 'SAP_WSDL_URL'");
+            }
+            url = new URL(wsdlUrl);
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
