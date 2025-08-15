@@ -3,6 +3,8 @@ package com.autoserviciosap.resources;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -34,7 +36,6 @@ import javax.mail.internet.MimeMultipart;
 
 import com.autoserviciosap.ApiException;
 import com.autoserviciosap.logic.TemplatesLogic;
-import com.sun.xml.messaging.saaj.util.Base64;
 
 @Stateless
 public class EmailResource {
@@ -124,7 +125,7 @@ public class EmailResource {
 			String username = properties.getProperty("sssap.authenticator.username");
 			String passwordB64 = properties.getProperty("sssap.authenticator.password");
 			System.out.println("PasswordB64:" + passwordB64);
-			String password = Base64.base64Decode(passwordB64);
+			String password = new String(Base64.getDecoder().decode(passwordB64), StandardCharsets.UTF_8);
 			System.out.println("Password:" + password);
 
 			if (username == null || username.isEmpty())
