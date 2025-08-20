@@ -1,0 +1,49 @@
+package com.autoserviciosap.endpoints;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+
+import com.autoserviciosap.resources.EmailResource;
+import com.autoserviciosap.resources.InternationalizationStateless;
+
+@Path("util")
+public class UtilEndpoints {
+	
+	@Context
+	HttpServletRequest request;
+
+	@Inject
+	private EmailResource emailResource;
+	
+	@Inject 
+	InternationalizationStateless i18n;
+
+
+	@GET
+	@Path("probar-email")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response probarEnvioMail() {
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("${sap-user}", "ANGLOBAL_EXPRESS");
+		params.put("${portal-url}", "url");
+		params.put("${api-url}", "api url");
+		params.put("${soporte-operacion}", "soporte");
+		
+		emailResource.enviarTemplate("jose.vazquezj@agilethought.com", "prueba",
+				"email-templates/email-successful-unlock-confirmation.html", params);
+		
+		return Response.ok().build();
+	}
+
+
+}
