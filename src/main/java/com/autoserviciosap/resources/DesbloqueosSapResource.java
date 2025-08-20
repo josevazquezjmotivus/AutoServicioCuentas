@@ -134,9 +134,9 @@ public class DesbloqueosSapResource {
 		agregarQueryParams(ws, environment);
 
 		Holder<String> tipo = new Holder<String>();
-		Holder<String> message = new Holder<String>();
-		Holder<String> password2 = new Holder<String>();
-		Holder<String> titulo = new Holder<String>();
+		Holder<String> message = new Holder<>();
+		Holder<String> password2 = new Holder<>();
+		Holder<String> titulo = new Holder<>();
 
 		String opcion = enum1.getOpcion();
 
@@ -194,9 +194,9 @@ public class DesbloqueosSapResource {
 		agregarQueryParams(service, environment);
 
 		Holder<String> tipo = new Holder<String>();
-		Holder<String> message = new Holder<String>();
-		Holder<String> password2 = new Holder<String>();
-		Holder<String> titulo = new Holder<String>();
+		Holder<String> message = new Holder<>();
+		Holder<String> password2 = new Holder<>();
+		Holder<String> titulo = new Holder<>();
 		System.out.println("Usuario ambiente:"+username);
 		service.zmfDESBLOUSUARIO( //
 				system, //
@@ -232,9 +232,9 @@ public class DesbloqueosSapResource {
 		agregarQueryParams(service, environment);
 
 		Holder<String> tipo = new Holder<String>();
-		Holder<String> message = new Holder<String>();
-		Holder<String> password2 = new Holder<String>();
-		Holder<String> titulo = new Holder<String>();
+		Holder<String> message = new Holder<>();
+		Holder<String> password2 = new Holder<>();
+		Holder<String> titulo = new Holder<>();
 		service.zmfDESBLOUSUARIO( //
 				system, //
 				null, //

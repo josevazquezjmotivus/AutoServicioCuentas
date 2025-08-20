@@ -3,6 +3,14 @@ package com.autoserviciosap.endpoints;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.autoserviciosap.dto.SelfServiceRequestTypeEnum;
+import com.autoserviciosap.dto.SelfServiceUserOperationRequestDto;
+import com.autoserviciosap.logic.EnvironmentsLogic;
+import com.autoserviciosap.model.Environment;
+import com.autoserviciosap.model.SelfServiceRequest;
+import com.autoserviciosap.model.SelfServiceRequestType;
+import com.autoserviciosap.model.User;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -13,14 +21,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import com.autoserviciosap.dto.SelfServiceRequestTypeEnum;
-import com.autoserviciosap.dto.SelfServiceUserOperationRequestDto;
-import com.autoserviciosap.logic.EnvironmentsLogic;
-import com.autoserviciosap.model.Environment;
-import com.autoserviciosap.model.SelfServiceRequest;
-import com.autoserviciosap.model.SelfServiceRequestType;
-import com.autoserviciosap.model.User;
 
 @Path("environments")
 public class EnvironmentsEndpoints {
@@ -168,12 +168,12 @@ public class EnvironmentsEndpoints {
 			SelfServiceUserOperationRequestDto dto //
 	) {
 		SelfServiceRequest ssr = enviornmentLogic.procesarPeticionAutoServicio( //
-				dto.getSystemId(), //
+				dto.systemId(), //
 				uuid, //
-				dto.getUsername(), //
-				dto.getEmail(), //
-				dto.getRecaptchaVerifyToken(), //
-				dto.getType());
+				dto.username(), //
+				dto.email(), //
+				dto.recaptchaVerifyToken(), //
+				dto.type());
 		ssr.setEnvironment(null);
 		ssr.setSelfServiceRequestType(null);
 		return ssr;

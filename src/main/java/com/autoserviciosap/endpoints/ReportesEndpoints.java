@@ -2,6 +2,12 @@ package com.autoserviciosap.endpoints;
 
 import java.util.List;
 
+import com.autoserviciosap.logic.EventoLogic;
+import com.autoserviciosap.logic.GeneralConstants;
+import com.autoserviciosap.logic.GenerarXLS;
+import com.autoserviciosap.model.Evento;
+import com.autoserviciosap.model.ReporteMetricaUso;
+
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.GET;
@@ -12,12 +18,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import com.autoserviciosap.logic.EventoLogic;
-import com.autoserviciosap.logic.GeneralConstants;
-import com.autoserviciosap.logic.GenerarXLS;
-import com.autoserviciosap.model.Evento;
-import com.autoserviciosap.model.ReporteMetricaUso;
 
 @Path("reportes")
 public class ReportesEndpoints {
@@ -34,13 +34,12 @@ public class ReportesEndpoints {
 	public Response obtenerEventos(@QueryParam("fechai") String fechai, @QueryParam("fechaf") String fechaf,
 			@QueryParam("tipo") String tipo) {
 
-		ReporteMetricaUso reporte = new ReporteMetricaUso();
-
 		System.out.println("Fechai:" + fechai);
 		System.out.println("Fechaf:" + fechaf);
 		System.out.println("Tipo:" + tipo);
 
 		List<Evento> eventos = null;
+		ReporteMetricaUso reporte = new ReporteMetricaUso(eventos, 0, 0, 0, 0);
 
 		if (tipo.equals("")) {
 			tipo = "%%";
@@ -51,12 +50,9 @@ public class ReportesEndpoints {
 //			Date f2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaf);
 		eventos = eventoLogic.obtenerReporteEventos(fechai, fechaf, tipo);
 
-		reporte.setEventos(eventos);
-		reporte.setTotalEventos(eventos.size());
 		int totalEventosDesSAP = 0;
 		int totalEventosResSAP = 0;
 		int totalEventosDesAD = 0;
-		
 		for (Evento evento : eventos) {
 			if (evento.getEvento().contains(GeneralConstants.DES_US_AD)) {
 				totalEventosDesAD++;
@@ -68,9 +64,7 @@ public class ReportesEndpoints {
 				totalEventosResSAP++;
 			}
 		}
-		reporte.setTotalEventosDesSAP(totalEventosDesSAP);
-		reporte.setTotalEventosResSAP(totalEventosResSAP);
-		reporte.setTotalEventosDesAD(totalEventosDesAD);
+		reporte = new ReporteMetricaUso(eventos, eventos.size(), totalEventosDesSAP, totalEventosResSAP, totalEventosDesAD);
 
 		return Response.ok(reporte).build();
 	}

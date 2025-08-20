@@ -3,7 +3,9 @@ package com.autoserviciosap.resources.ZWS_DESBLOQUEO_USUARIOS;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import javax.xml.namespace.QName;
+
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebEndpoint;
 import jakarta.xml.ws.WebServiceClient;
@@ -22,18 +24,18 @@ public class ZWSBloqueoDesbloqueoUsuarios
     extends Service
 {
 
-    private final static URL ZWSBLOQUEODESBLOQUEOUSUARIOS_WSDL_LOCATION;
-    private final static WebServiceException ZWSBLOQUEODESBLOQUEOUSUARIOS_EXCEPTION;
+    private static final URL ZWSBLOQUEODESBLOQUEOUSUARIOS_WSDL_LOCATION;
+    private static final WebServiceException ZWSBLOQUEODESBLOQUEOUSUARIOS_EXCEPTION;
     //MABE
     //private final static QName ZWSBLOQUEODESBLOQUEOUSUARIOS_QNAME = new QName("urn:sap-com:document:sap:rfc:functions", "ZWS_bloqueo_desbloqueo_usuarios");
     //AT
-    private final static QName ZWSBLOQUEODESBLOQUEOUSUARIOS_QNAME = new QName("urn:sap-com:document:sap:rfc:functions", "ZWS_BLOQUEO_DESBLOQUEO_USUARIOS");
+    private static final QName ZWSBLOQUEODESBLOQUEOUSUARIOS_QNAME = new QName("urn:sap-com:document:sap:rfc:functions", "ZWS_BLOQUEO_DESBLOQUEO_USUARIOS");
 
     static {
-        URL url = null;
-        WebServiceException e = null;
+        var url = (URL) null;
+        var e = (WebServiceException) null;
         try {
-            String wsdlUrl = System.getProperty("sap.wsdl.url");
+            var wsdlUrl = System.getProperty("sap.wsdl.url");
             if (wsdlUrl == null || wsdlUrl.isEmpty()) {
                 wsdlUrl = System.getenv("SAP_WSDL_URL");
             }
@@ -95,8 +97,8 @@ public class ZWSBloqueoDesbloqueoUsuarios
     }
 
     private static URL __getWsdlLocation() {
-        if (ZWSBLOQUEODESBLOQUEOUSUARIOS_EXCEPTION!= null) {
-            throw ZWSBLOQUEODESBLOQUEOUSUARIOS_EXCEPTION;
+        if (ZWSBLOQUEODESBLOQUEOUSUARIOS_EXCEPTION instanceof WebServiceException wse && wse.getCause() != null) {
+            throw wse;
         }
         return ZWSBLOQUEODESBLOQUEOUSUARIOS_WSDL_LOCATION;
     }

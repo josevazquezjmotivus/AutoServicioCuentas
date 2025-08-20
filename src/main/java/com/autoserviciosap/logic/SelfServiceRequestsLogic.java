@@ -1,18 +1,11 @@
 package com.autoserviciosap.logic;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
-
-import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
 import com.autoserviciosap.ApiException;
 import com.autoserviciosap.AppProperties;
@@ -20,6 +13,13 @@ import com.autoserviciosap.model.SelfServiceRequest;
 import com.autoserviciosap.resources.DesbloqueosSapResource;
 import com.autoserviciosap.resources.InternationalizationStateless;
 import com.autoserviciosap.resources.ZWS_DESBLOQUEO_USUARIOS.ZMFDESBLOUSUARIOResponse;
+
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+// Eliminados imports legacy de fechas
+// Eliminado import no usado
 
 @Stateless
 public class SelfServiceRequestsLogic {
@@ -106,7 +106,6 @@ public class SelfServiceRequestsLogic {
 			throw new ApiException(501,
 					"No se puede manejar el tipo " + e.getSelfServiceRequestType().getId() + " en esta sección");
 		}
-
 		if (!"S".equalsIgnoreCase(result.getTIPO())) throw new ApiException(500,
 				"La solicitud no fué realizada por el siguiente motivo: " + result.getMESSAGE());
 
@@ -189,35 +188,20 @@ public class SelfServiceRequestsLogic {
 	
 	private boolean pasoPorTiempo(Timestamp t,Timestamp t2) {
 		System.out.println(t);
-		System.out.println(t.compareTo(t2));
-		Date date = new Date(t.getTime());
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-		String formattedDate = sdf.format(date);
-		System.out.println("f:"+formattedDate);
-		int hour = Integer.valueOf(formattedDate.substring(0,2));
+		var time1 = t.toLocalDateTime().toLocalTime();
+		var time2 = t2.toLocalDateTime().toLocalTime();
+		System.out.println("f:" + time1);
+		int hour = time1.getHour();
 		System.out.println(hour);
-		int minuts = Integer.valueOf(formattedDate.substring(3,5));
-		System.out.println(minuts);
-		
-		date = new Date(t2.getTime());
-		sdf.format(date);
-		formattedDate = sdf.format(date);
-		System.out.println("f:"+formattedDate);
-		int hour2 = Integer.valueOf(formattedDate.substring(0,2));
+		int minutes = time1.getMinute();
+		System.out.println(minutes);
+		System.out.println("f:" + time2);
+		int hour2 = time2.getHour();
 		System.out.println(hour2);
-		int minuts2 = Integer.valueOf(formattedDate.substring(3,5));
-		System.out.println(minuts2);
-		
-		boolean pasaPorTiempo = false;
-		if(hour2 == hour) {
-			if(minuts == minuts2) {
-				pasaPorTiempo = true;
-			}
-		}
-		
-		System.out.println("paso por tiempo:"+pasaPorTiempo);
-		
+		int minutes2 = time2.getMinute();
+		System.out.println(minutes2);
+		boolean pasaPorTiempo = (hour2 == hour) && (minutes == minutes2);
+		System.out.println("paso por tiempo:" + pasaPorTiempo);
 		return pasaPorTiempo;
 	}
 	

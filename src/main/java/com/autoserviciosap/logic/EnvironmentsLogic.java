@@ -283,7 +283,7 @@ public class EnvironmentsLogic {
 
 		if (!"S".contentEquals(validarUsuarioYCorreoResponse.getTIPO())) {
 			String message = validarUsuarioYCorreoResponse.getMESSAGE();
-			if (validarUsuarioYCorreoResponse.getMESSAGE().isEmpty()) {
+			if (message == null || message.isEmpty()) {
 				message = "Ocurrió un error en SAP (tipo: <" + validarUsuarioYCorreoResponse.getTIPO()
 						+ ">) y no acompañó con mensaje, consulte con el administrador del sistema";
 			} else {
@@ -313,7 +313,7 @@ public class EnvironmentsLogic {
 			
 		}if (!"S".contentEquals(verificarBajaOBloqueoResponse.getTIPO())) {
 			String message = verificarBajaOBloqueoResponse.getMESSAGE();
-			if (verificarBajaOBloqueoResponse.getMESSAGE().isEmpty()) {
+			if (message == null || message.isEmpty()) {
 				message = "Ocurrió un error en SAP (tipo: <" + verificarBajaOBloqueoResponse.getTIPO()
 						+ ">) y no acompañó con mensaje, consulte con el administrador del sistema";
 			} else {
