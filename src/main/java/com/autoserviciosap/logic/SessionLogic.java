@@ -2,13 +2,13 @@ package com.autoserviciosap.logic;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Context;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.ws.rs.core.Context;
 
 import com.autoserviciosap.ApiException;
 import com.autoserviciosap.dto.PermissionEnum;
@@ -51,12 +51,12 @@ public class SessionLogic {
 		User user = usersLogic.encontrarUsuarioPorCredenciales(username, password);
 		if (user == null) throw new ApiException(401, i18n.get("error-login"));
 		
-		String PassEncoded = UsersLogic.SHA256(password + user.getUuid());
+		/*String PassEncoded = UsersLogic.SHA256(password + user.getUuid());
 		//System.out.println("pass:"+user.getPassword());
 		//System.out.println("pass2:"+PassEncoded);
 		if(!user.getPassword().equals(PassEncoded)) {
 			 throw new ApiException(401, i18n.get("error-login"));
-		}
+		}*/
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("user-uuid", user.getUuid());

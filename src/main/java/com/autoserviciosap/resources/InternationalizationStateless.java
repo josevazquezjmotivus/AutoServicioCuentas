@@ -3,10 +3,10 @@ package com.autoserviciosap.resources;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.ejb.Stateless;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Context;
+import jakarta.ejb.Stateless;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.ws.rs.core.Context;
 
 import com.autoserviciosap.endpoints.ConfigurationEndpoints;
 

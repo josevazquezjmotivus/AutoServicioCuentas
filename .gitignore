@@ -59,3 +59,4 @@ target/classes/META-INF/orm.xml
 target/classes/META-INF/persistence.xml
 target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/target/
